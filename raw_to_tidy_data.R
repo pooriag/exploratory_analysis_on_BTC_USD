@@ -1,13 +1,14 @@
 # importing libraries
 library(jsonlite)
 library(dplyr)
-library(ggplot2)
+library(lubridate)
 
 # downloading the raw data
 if (!dir.exists('data')) dir.create('data/')
 
 download.file("https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail/chart?id=1&range=1D",
               "data/prices_of_btc_usd.json")
+time_of_download <- now()
 #https://coinmarketcap.com/currencies/bitcoin/
 
 # parsing json file of BTC/USD
@@ -26,6 +27,4 @@ prices_btc_usd <- sapply(btc_usd_price, function(point){
       point$v[[1]]
 })
 btc_df$price_in_usd <- prices_btc_usd
-
-qplot(btc_df$time, btc_df$price_in_usd, geom = 'line')
 

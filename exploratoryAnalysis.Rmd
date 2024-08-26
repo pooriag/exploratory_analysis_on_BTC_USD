@@ -1,0 +1,31 @@
+---
+title: "Exploratory Analysis"
+author: "Pouria Golestani"
+date: "2024-08-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+```
+
+
+## Qestion
+
+## Getting Tidy Dataset
+
+```{r}
+source('raw_to_tidy_data.R')
+```
+Now let see how BTC/USD data looks like based on time for 1D time frame in `r update(time_of_download, seconds = round(second(time_of_download)))`.
+
+```{r, echo=FALSE}
+suppressWarnings(expr = {qplot(time, price_in_usd, data = btc_df, geom = 'line', xlab = "Time", ylab = "USD")})
+```
+
