@@ -4,15 +4,15 @@ library(dplyr)
 library(lubridate)
 
 # downloading the raw data
-if (!dir.exists('data')) dir.create('data/')
+if (!dir.exists('raw_data')) dir.create('raw_data/')
 
 download.file("https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail/chart?id=1&range=1D",
-              "data/prices_of_btc_usd.json")
+              "raw_data/prices_of_btc_usd.json")
 time_of_download <- now()
 #https://coinmarketcap.com/currencies/bitcoin/
 
 # parsing json file of BTC/USD
-btc_usd_price <- fromJSON('data/prices_of_btc_usd.json')[[c(1, 1)]]
+btc_usd_price <- fromJSON('raw_data/prices_of_btc_usd.json')[[c(1, 1)]]
 
 # turning data to dataframe
 times <- as.POSIXct(as.integer(names(btc_usd_price)))
