@@ -1,5 +1,5 @@
 ---
-title: "Exploratory Analysis"
+title: "Exploratory Analysis ON Factors Efecting Bitcoin Price"
 author: "Pouria Golestani"
 date: "2024-08-26"
 output: html_document
@@ -20,12 +20,18 @@ library(lubridate)
 
 ## Getting Tidy Dataset
 
-```{r}
+```{r, echo=FALSE, include=FALSE}
 source('raw_to_tidy_data.R')
-```
+
+btc_df <- dget("data/tidy_data/btc_df.R")
+time_of_download <- readLines(tmp <- file("data/raw_data/time_of_download.txt", "r"))
+time_of_download <- ymd_hms(time_of_download)
+close(tmp)
+rm(tmp)
+```         
 Now let see how BTC/USD data looks like based on time for 1D time frame in `r update(time_of_download, seconds = round(second(time_of_download)))`.
 
 ```{r, echo=FALSE}
-suppressWarnings(expr = {qplot(time, price_in_usd, data = btc_df, geom = 'line', xlab = "Time", ylab = "USD")})
+suppressWarnings(expr = {qplot(time, price_in_usd, data = filter(btc_df, timeframe == '1D'), geom = 'line', xlab = "Time", ylab = "USD")})
 ```
 
